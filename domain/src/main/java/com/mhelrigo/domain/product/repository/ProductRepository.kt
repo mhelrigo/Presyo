@@ -1,4 +1,4 @@
-package com.mhelrigo.domain.product.interactor
+package com.mhelrigo.domain.product.repository
 
 import com.mhelrigo.domain.product.entity.Product
 import com.mhelrigo.domain.product.entity.ProductCategories

@@ -1,6 +1,6 @@
 package com.mhelrigo.domain.product.usecase
 
-import com.mhelrigo.domain.product.interactor.ProductRepository
+import com.mhelrigo.domain.product.repository.ProductRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 

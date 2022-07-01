@@ -1,7 +1,7 @@
 package com.mhelrigo.domain.product.usecase
 
 import com.mhelrigo.domain.product.entity.ProductCategories
-import com.mhelrigo.domain.product.interactor.ProductRepository
+import com.mhelrigo.domain.product.repository.ProductRepository
 import com.mhelrigo.domain.product.utils.test.CoroutineTestRule
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

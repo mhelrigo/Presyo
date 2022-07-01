@@ -6,7 +6,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mhelrigo.data.product.datasource.remote.firebase.model.ProductCategoriesFirebaseModel
 import com.mhelrigo.domain.product.entity.ProductCategories
-import com.mhelrigo.domain.product.interactor.ProductRepository
+import com.mhelrigo.domain.product.repository.ProductRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
