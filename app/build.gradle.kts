@@ -55,6 +55,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.5.0")
 
     implementation(Kotlin.COROUTINES)
+    testImplementation(Kotlin.COROUTINES_TEST)
 
     implementation(platform(Firebase.BOM))
     implementation(Firebase.DATABASE)

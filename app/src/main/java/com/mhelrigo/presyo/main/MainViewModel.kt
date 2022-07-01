@@ -29,11 +29,6 @@ class MainViewModel @Inject constructor(val getProductsUseCase: GetProductsUseCa
             }
             .collectLatest {
                 productReceived.invoke(it)
-                for (productCategory in it.productCategories) {
-                    for (product in productCategory.products) {
-                        Timber.e("product ${product.name}")
-                    }
-                }
             }
     }
 
