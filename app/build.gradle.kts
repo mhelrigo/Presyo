@@ -1,8 +1,13 @@
 import com.mhelrigo.buildsrc.*
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
+
 }
 
 android {
@@ -21,7 +26,10 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -34,12 +42,31 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":data"))
+
     implementation(Kotlin.CORE_KTX)
     implementation("androidx.appcompat:appcompat:1.4.2")
     implementation("com.google.android.material:material:1.6.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    testImplementation(JUnit.J_UNIT)
+    androidTestImplementation(JUnit.J_UNIT_EXT)
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation("androidx.activity:activity-ktx:1.5.0")
 
     implementation(Kotlin.COROUTINES)
+
+    implementation(platform(Firebase.BOM))
+    implementation(Firebase.DATABASE)
+
+    // Logging
+    implementation(Timber.TIMBER)
+
+    // Hilt
+    implementation(Hilt.HILT_ANDROID)
+    kapt(Hilt.HILT_ANDROID_COMPILER)
+}
+
+kapt {
+    correctErrorTypes = true
 }

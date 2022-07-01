@@ -3,6 +3,8 @@ import com.mhelrigo.buildsrc.*
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -34,8 +36,13 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
+    testImplementation(project(":domain"))
+
+    // Coroutine
     implementation(Kotlin.CORE_KTX)
     implementation(Kotlin.COROUTINES)
+    testImplementation(Kotlin.COROUTINES_TEST)
 
     // Room
     implementation(Room.RUNTIME)
@@ -45,4 +52,19 @@ dependencies {
     // Firebase
     implementation(platform(Firebase.BOM))
     implementation(Firebase.DATABASE)
+
+    // Logging
+    implementation(Timber.TIMBER)
+
+    // Hilt
+    implementation(Hilt.HILT_ANDROID)
+    kapt(Hilt.HILT_ANDROID_COMPILER)
+
+    // JUnit
+    implementation(com.mhelrigo.buildsrc.JUnit.J_UNIT)
+    testImplementation(com.mhelrigo.buildsrc.Mockito.MOCKITO)
+}
+
+kapt {
+    correctErrorTypes = true
 }
