@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.mhelrigo.domain.product.entity.ProductCategories
 import com.mhelrigo.presyo.BuildConfig
 import com.mhelrigo.presyo.R
 import com.mhelrigo.presyo.databinding.ActivityMainBinding
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel.productReceived = {
-            productCategoriesAdapter.submitProductCategories(it.productCategories)
+            populateView(it)
         }
 
         mainViewModel.errorEncountered = {
@@ -85,6 +86,11 @@ class MainActivity : AppCompatActivity() {
         settingsViewModel.colorMode = {
             configureColorScheme(it == ColorMode.DARK_MODE)
         }
+    }
+
+    private fun populateView(productCategories: ProductCategories) {
+        productCategoriesAdapter.submitProductCategories(productCategories.productCategories)
+        binding.textViewDate.text = "data as of ${productCategories.date}"
     }
 
     private fun setUpRecyclerView() {

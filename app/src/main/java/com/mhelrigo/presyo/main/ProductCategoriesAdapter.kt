@@ -22,7 +22,7 @@ class ProductCategoriesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
             setUpRecyclerView()
         }
 
-        fun setUpRecyclerView() {
+        private fun setUpRecyclerView() {
             binding.recyclerViewProduct.apply {
                 adapter = ProductRecyclerViewAdapter().apply {
                     submitProducts(productCategory.products)

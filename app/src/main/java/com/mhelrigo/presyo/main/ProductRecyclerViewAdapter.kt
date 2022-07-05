@@ -1,13 +1,12 @@
 package com.mhelrigo.presyo.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mhelrigo.domain.product.entity.Product
-import com.mhelrigo.domain.product.entity.ProductOrigin
 import com.mhelrigo.presyo.databinding.ItemProductBinding
+import com.mhelrigo.presyo.main.model.ProductModel
 
 class ProductRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -15,27 +14,21 @@ class ProductRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.textViewName.text = product.name
-            binding.chipCurrentPrice.text = "current ₱ ${
-                com.mhelrigo.presyo.main.model.Product.displayablePrice(
-                    product.currentPrice,
-                )
-            }"
-            binding.chipPreviousPrice.text = "previous ₱ ${
-                com.mhelrigo.presyo.main.model.Product.displayablePrice(
-                    product.previousPrice,
-                )
-            }"
+            binding.chipCurrentPrice.text =
+                "current ₱ ${ProductModel.displayablePrice(product.currentPrice)}"
+            binding.chipPreviousPrice.text =
+                "previous ₱ ${ProductModel.displayablePrice(product.previousPrice)}"
             binding.imageViewTrend.setImageDrawable(
                 ContextCompat.getDrawable(
                     binding.root.context,
-                    com.mhelrigo.presyo.main.model.Product.trendImage(
+                    ProductModel.trendImage(
                         product.previousPrice,
                         product.currentPrice
                     )
                 )
             )
             binding.chipImported.visibility =
-                if (product.productOrigin.name == ProductOrigin.INTERNATIONAL.name) View.VISIBLE else View.GONE
+                ProductModel.originViewVisibility(product.productOrigin)
         }
     }
 
