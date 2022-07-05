@@ -16,18 +16,20 @@ import kotlin.coroutines.CoroutineContext
 class MainViewModel @Inject constructor(val getProductsUseCase: GetProductsUseCase) : ViewModel(),
     CoroutineScope {
 
-    lateinit var loadingProduct: () -> Unit
+    lateinit var loadingProduct: (Boolean) -> Unit
     lateinit var productReceived: (ProductCategories) -> Unit
     lateinit var errorEncountered: () -> Unit
 
     fun getProducts() = launch {
         getProductsUseCase.invoke()
             .onStart {
-                loadingProduct.invoke()
+                loadingProduct.invoke(true)
             }.catch {
+                loadingProduct.invoke(false)
                 errorEncountered.invoke()
             }
             .collectLatest {
+                loadingProduct.invoke(false)
                 productReceived.invoke(it)
             }
     }

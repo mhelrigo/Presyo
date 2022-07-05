@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ChipTextAppearance">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto_thin</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textSize">@dimen/base_12</item>
+    </style>
+
+    <style name="ChipTextAppearance_2">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto_thin</item>
+        <item name="android:textColor">@color/orange_500_light</item>
+        <item name="android:textSize">@dimen/base_12</item>
+    </style>
+</resources>
