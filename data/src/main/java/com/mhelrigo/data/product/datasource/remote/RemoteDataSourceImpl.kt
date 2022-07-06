@@ -1,10 +1,10 @@
-package com.mhelrigo.data.product.datasource.remote.firebase
+package com.mhelrigo.data.product.datasource.remote
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.mhelrigo.data.product.datasource.remote.firebase.model.ProductCategoriesFirebaseModel
+import com.mhelrigo.data.product.datasource.remote.model.ProductCategoriesFirebaseModel
 import com.mhelrigo.domain.product.entity.ProductCategories
 import com.mhelrigo.domain.product.repository.ProductRepository
 import kotlinx.coroutines.*

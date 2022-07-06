@@ -1,6 +1,6 @@
 package com.mhelrigo.data
 
-import com.mhelrigo.data.product.datasource.remote.firebase.model.ProductCategoriesFirebaseModel
+import com.mhelrigo.data.product.datasource.remote.model.ProductCategoriesFirebaseModel
 import com.mhelrigo.domain.product.entity.ProductCategories
 import com.mhelrigo.domain.product.repository.ProductRepository
 import com.mhelrigo.domain.product.utils.test.CoroutineTestRule

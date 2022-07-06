@@ -1,7 +1,7 @@
 package com.mhelrigo.data.di
 
 import com.mhelrigo.data.product.ProductRepositoryImpl
-import com.mhelrigo.data.product.datasource.remote.firebase.RemoteDataSourceImpl
+import com.mhelrigo.data.product.datasource.remote.RemoteDataSourceImpl
 import com.mhelrigo.domain.product.repository.ProductRepository
 import dagger.Binds
 import dagger.Module

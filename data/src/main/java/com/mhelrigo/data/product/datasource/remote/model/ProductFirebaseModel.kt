@@ -1,4 +1,4 @@
-package com.mhelrigo.data.product.datasource.remote.firebase.model
+package com.mhelrigo.data.product.datasource.remote.model
 
 import com.mhelrigo.domain.product.entity.Product
 

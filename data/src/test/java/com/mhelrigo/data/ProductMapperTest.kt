@@ -1,8 +1,8 @@
 package com.mhelrigo.data
 
-import com.mhelrigo.data.product.datasource.remote.firebase.model.ProductCategoriesFirebaseModel
-import com.mhelrigo.data.product.datasource.remote.firebase.model.ProductCategoryFirebaseModel
-import com.mhelrigo.data.product.datasource.remote.firebase.model.ProductFirebaseModel
+import com.mhelrigo.data.product.datasource.remote.model.ProductCategoriesFirebaseModel
+import com.mhelrigo.data.product.datasource.remote.model.ProductCategoryFirebaseModel
+import com.mhelrigo.data.product.datasource.remote.model.ProductFirebaseModel
 import junit.framework.TestCase
 
 internal class ProductMapperTest : TestCase() {
