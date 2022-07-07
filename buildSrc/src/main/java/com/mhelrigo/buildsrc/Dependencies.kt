@@ -20,6 +20,7 @@ object Room {
     val RUNTIME by lazy { "androidx.room:room-runtime:$VERSION" }
     val COMPILER by lazy { "androidx.room:room-compiler:$VERSION" }
     val TEST_HELPER by lazy { "androidx.room:room-testing:$VERSION" }
+    val KT_SUPPORT by lazy { "androidx.room:room-ktx:$VERSION" }
 }
 
 object Firebase {

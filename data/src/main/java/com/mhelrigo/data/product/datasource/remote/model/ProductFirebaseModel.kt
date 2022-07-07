@@ -9,23 +9,7 @@ internal data class ProductFirebaseModel(
     val `previous_price`: Long? = null,
     val `origin`: String? = null
 ) {
-    companion object {
-        fun transform(
-            id: Int? = null,
-            name: String? = null,
-            `current_price`: Long? = null,
-            `previous_price`: Long? = null,
-            `origin`: String? = null
-        ) = Product(
-            name!!,
-            current_price!!,
-            previous_price!!,
-            Product.generateProductOrigin(origin!!)
-        )
 
-        fun transform(productFirebaseModels: List<ProductFirebaseModel>) =
-            productFirebaseModels.map {
-                transform(it.id, it.name, it.current_price, it.previous_price, it.origin)
-            }
-    }
+    fun transform(): Product =
+        Product(id!!, name!!, current_price!!, previous_price!!, Product.generateProductOrigin(origin!!))
 }

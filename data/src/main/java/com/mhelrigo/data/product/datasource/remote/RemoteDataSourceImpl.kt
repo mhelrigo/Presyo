@@ -10,6 +10,8 @@ import com.mhelrigo.domain.product.repository.ProductRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
+import timber.log.Timber
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(val firebaseDatabase: FirebaseDatabase) :
@@ -24,11 +26,15 @@ class RemoteDataSourceImpl @Inject constructor(val firebaseDatabase: FirebaseDat
                     if (snapshot.value == null) {
                         close(IllegalArgumentException())
                     } else {
-                        val productCategories = ProductCategoriesFirebaseModel.transform(
-                            snapshot.getValue(
-                                ProductCategoriesFirebaseModel::class.java
-                            )!!
-                        )
+                        val snapShotResult = snapshot.getValue(
+                            ProductCategoriesFirebaseModel::class.java
+                        )!!
+
+                        val productCategories = snapShotResult.transform(snapShotResult.data?.map {
+                            it.transform(it.product?.map {
+                                it.transform()
+                            }!!)
+                        }!!)
 
                         offer(productCategories)
                     }

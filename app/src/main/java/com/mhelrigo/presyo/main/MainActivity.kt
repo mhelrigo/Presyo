@@ -1,5 +1,7 @@
 package com.mhelrigo.presyo.main
 
+import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -104,7 +106,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureColorScheme(isNightMode: Boolean) {
         if (isNightMode) {
-            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+            if (delegate.localNightMode == AppCompatDelegate.MODE_NIGHT_NO) {
+                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+            }
             return
         }
 

@@ -1,6 +1,11 @@
 package com.mhelrigo.domain.product.entity
 
-data class ProductCategory(val name: String, val unitType: UnitType, val products: List<Product>) {
+data class ProductCategory(
+    val id: Int,
+    val name: String,
+    val unitType: UnitType,
+    val products: List<Product>
+) {
     companion object {
         fun generateUnitType(unitType: String) = when (unitType) {
             UnitType.KG.name -> {

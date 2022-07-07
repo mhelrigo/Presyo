@@ -18,8 +18,15 @@ internal class MainViewModelTest : TestCase() {
     private var isProductReceived = false
     private var isErrorNotEncountered = true
 
+    private var fakeLocalDataSourceImpl = FakeLocalDataSourceImpl()
+
     override fun setUp() {
-        fakeGetUseCase = FakeGetUseCase(ProductRepositoryImpl(FakeRemoteDataSourceImpl()))
+        fakeGetUseCase = FakeGetUseCase(
+            ProductRepositoryImpl(
+                FakeRemoteDataSourceImpl(),
+                fakeLocalDataSourceImpl
+            )
+        )
 
         loadingProduct = {
             isLoadingCalled = true
@@ -46,6 +53,31 @@ internal class MainViewModelTest : TestCase() {
                 assertNotNull(it)
                 assertTrue(isProductReceived)
                 assertTrue(isErrorNotEncountered)
+                assertTrue(fakeLocalDataSourceImpl.isDataCached)
+            }
+        }
+    }
+
+    fun `test get product but failed`() {
+        fakeGetUseCase = FakeGetUseCase(
+            ProductRepositoryImpl(
+                FakeRemoteDataSourceFailedImpl(),
+                fakeLocalDataSourceImpl
+            )
+        )
+
+        kotlinx.coroutines.test.runTest {
+            fakeGetUseCase().onStart {
+                loadingProduct()
+                assertTrue(isLoadingCalled)
+            }.catch {
+                errorEncountered()
+            }.collectLatest {
+                productReceived(it)
+                assertEquals("Cached Fake Date", it.date)
+                assertTrue(isProductReceived)
+                assertTrue(isErrorNotEncountered)
+                assertTrue(fakeLocalDataSourceImpl.isCachedDataEmitted)
             }
         }
     }
@@ -54,11 +86,33 @@ internal class MainViewModelTest : TestCase() {
         suspend operator fun invoke() = productRepositoryImpl.getProducts()
     }
 
-    internal class FakeRemoteDataSourceImpl: ProductRepository.RemoteDataSource {
+    internal class FakeRemoteDataSourceImpl : ProductRepository.RemoteDataSource {
         override suspend fun getProducts(): Flow<ProductCategories> {
             return flow {
-                emit(ProductCategories(emptyList()))
+                emit(ProductCategories(emptyList(), "Fake Date"))
             }
+        }
+    }
+
+    internal class FakeRemoteDataSourceFailedImpl : ProductRepository.RemoteDataSource {
+        override suspend fun getProducts(): Flow<ProductCategories> {
+            return flow {
+                throw NullPointerException()
+            }
+        }
+    }
+
+    internal class FakeLocalDataSourceImpl : ProductRepository.LocalDataSource {
+        var isDataCached = false
+        var isCachedDataEmitted = false;
+
+        override suspend fun cacheProducts(productCategories: ProductCategories) {
+            isDataCached = true
+        }
+
+        override suspend fun getProductCategories(): ProductCategories {
+            isCachedDataEmitted = true
+            return ProductCategories(emptyList(), "Cached Fake Date")
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.mhelrigo.domain.product.entity
 
 data class Product(
+    val id: Int,
     val name: String,
     val currentPrice: Long,
     val previousPrice: Long,

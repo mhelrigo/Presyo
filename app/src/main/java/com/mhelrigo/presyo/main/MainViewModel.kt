@@ -14,7 +14,7 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
-class MainViewModel @Inject constructor(val getProductsUseCase: GetProductsUseCase) : ViewModel(){
+class MainViewModel @Inject constructor(val getProductsUseCase: GetProductsUseCase) : ViewModel() {
 
     lateinit var loadingProduct: (Boolean) -> Unit
     lateinit var productReceived: (ProductCategories) -> Unit
@@ -27,8 +27,7 @@ class MainViewModel @Inject constructor(val getProductsUseCase: GetProductsUseCa
             }.catch {
                 loadingProduct.invoke(false)
                 errorEncountered.invoke()
-            }
-            .collectLatest {
+            }.collectLatest {
                 loadingProduct.invoke(false)
                 productReceived.invoke(it)
             }

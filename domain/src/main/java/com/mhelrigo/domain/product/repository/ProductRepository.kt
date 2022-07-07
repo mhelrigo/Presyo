@@ -13,7 +13,6 @@ interface ProductRepository {
 
     interface LocalDataSource {
         suspend fun cacheProducts(productCategories: ProductCategories)
-        suspend fun getProducts(): Flow<List<Product>>
-        suspend fun getProductCategories(): Flow<ProductCategories>
+        suspend fun getProductCategories(): ProductCategories
     }
 }

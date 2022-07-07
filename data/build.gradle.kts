@@ -3,7 +3,8 @@ import com.mhelrigo.buildsrc.*
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
+    id("kotlin-kapt")
+    id("kotlin-android")
     id("dagger.hilt.android.plugin")
 }
 
@@ -33,11 +34,15 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    packagingOptions {
+        resources.pickFirsts.add("META-INF/AL2.0")
+        resources.pickFirsts.add("META-INF/LGPL2.1")
+    }
 }
 
 dependencies {
     implementation(project(":domain"))
-    testImplementation(project(":domain"))
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.3")
 
     // Coroutine
     implementation(Kotlin.CORE_KTX)
@@ -47,7 +52,8 @@ dependencies {
     // Room
     implementation(Room.RUNTIME)
     implementation(Room.TEST_HELPER)
-    annotationProcessor(Room.COMPILER)
+    implementation(Room.KT_SUPPORT)
+    kapt(Room.COMPILER)
 
     // Firebase
     implementation(platform(Firebase.BOM))
@@ -61,8 +67,10 @@ dependencies {
     kapt(Hilt.HILT_ANDROID_COMPILER)
 
     // JUnit
-    implementation(com.mhelrigo.buildsrc.JUnit.J_UNIT)
-    testImplementation(com.mhelrigo.buildsrc.Mockito.MOCKITO)
+    implementation(JUnit.J_UNIT)
+    androidTestImplementation(JUnit.J_UNIT_EXT)
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    testImplementation(Mockito.MOCKITO)
 }
 
 kapt {
