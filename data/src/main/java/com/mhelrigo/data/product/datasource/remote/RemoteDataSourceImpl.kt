@@ -10,12 +10,11 @@ import com.mhelrigo.domain.product.repository.ProductRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
-import timber.log.Timber
-import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(val firebaseDatabase: FirebaseDatabase) :
     ProductRepository.RemoteDataSource {
+    @OptIn(ExperimentalCoroutinesApi::class)
     override suspend fun getProducts(): Flow<ProductCategories> {
         val databaseReference =
             firebaseDatabase.getReferenceFromUrl("https://bantay-presyo-default-rtdb.firebaseio.com/")
@@ -36,7 +35,7 @@ class RemoteDataSourceImpl @Inject constructor(val firebaseDatabase: FirebaseDat
                             }!!)
                         }!!)
 
-                        offer(productCategories)
+                        trySend(productCategories)
                     }
                 }
 
