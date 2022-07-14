@@ -14,5 +14,7 @@
         <!-- Customize your theme here. -->
 
         <item name="customBackgroundColor">@color/night_mode</item>
+
+        <item name="importedTextViewColor">@color/orange_500_light</item>
     </style>
 </resources>

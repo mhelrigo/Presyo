@@ -1,4 +1,4 @@
-package com.mhelrigo.presyo.main
+package com.mhelrigo.presyo.product
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,35 +6,30 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mhelrigo.domain.product.entity.Product
 import com.mhelrigo.presyo.databinding.ItemProductBinding
-import com.mhelrigo.presyo.main.model.ProductModel
+import com.mhelrigo.presyo.product.model.ProductModel
 
 class ProductRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class ProductViewHolder(val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product) {
+        fun bind(product: ProductModel) {
             binding.textViewName.text = product.name
-            binding.chipCurrentPrice.text =
-                "current ₱ ${ProductModel.displayablePrice(product.currentPrice)}"
-            binding.chipPreviousPrice.text =
-                "previous ₱ ${ProductModel.displayablePrice(product.previousPrice)}"
+            binding.chipCurrentPrice.text = product.displayableCurrentPrice()
+            binding.chipPreviousPrice.text = product.displayablePreviousPrice()
             binding.imageViewTrend.setImageDrawable(
                 ContextCompat.getDrawable(
                     binding.root.context,
-                    ProductModel.trendImage(
-                        product.previousPrice,
-                        product.currentPrice
-                    )
+                    product.trendImage()
                 )
             )
             binding.chipImported.visibility =
-                ProductModel.originViewVisibility(product.productOrigin)
+                product.originViewVisibility()
         }
     }
 
-    private val products: ArrayList<Product> = arrayListOf()
+    private val products: ArrayList<ProductModel> = arrayListOf()
 
-    fun submitProducts(products: List<Product>) {
+    fun submitProducts(products: List<ProductModel>) {
         this.products.clear()
         this.products.addAll(products)
         notifyDataSetChanged()

@@ -47,3 +47,7 @@ object JUnit {
 object Mockito {
     val MOCKITO by lazy { "org.mockito:mockito-core:1.10.19" }
 }
+
+object Espresso {
+    val ESPRESSO by lazy { "androidx.test.espresso:espresso-core:3.4.0" }
+}

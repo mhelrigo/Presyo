@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/base_16"
-    android:layout_marginEnd="@dimen/base_16"
-    android:layout_marginBottom="@dimen/base_16"
+    android:layout_marginStart="@dimen/base_8"
+    android:layout_marginTop="@dimen/base_8"
+    android:layout_marginEnd="@dimen/base_8"
+    android:layout_marginBottom="@dimen/base_8"
     app:cardBackgroundColor="?attr/customBackgroundColor"
-    app:cardCornerRadius="@dimen/base_16">
+    app:cardCornerRadius="@dimen/base_8">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,71 +19,67 @@
             android:id="@+id/textViewName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/base_16"
-            android:fontFamily="@font/roboto"
+            android:layout_margin="@dimen/base_8"
+            android:fontFamily="@font/roboto_thin"
             android:text="Tilapia"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="@dimen/base_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipPreviousPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/base_8"
-            android:layout_marginBottom="@dimen/base_8"
-            android:layout_marginEnd="@dimen/base_8"
-            android:text="Previous 500"
-            android:textAppearance="@style/ChipTextAppearance"
-            app:chipEndPadding="@dimen/base_16"
-            app:chipStartPadding="@dimen/base_16"
-            app:chipStrokeWidth="0.5dp"
-            app:chipStrokeColor="?attr/customBackgroundColor"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/chipImported"
             app:layout_constraintEnd_toStartOf="@+id/chipCurrentPrice"
-            app:layout_constraintTop_toBottomOf="@id/textViewName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <com.google.android.material.chip.Chip
+        <TextView
             android:id="@+id/chipCurrentPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/base_8"
-            android:layout_marginEnd="@dimen/base_16"
-            android:text="Current 500"
-            android:textAppearance="@style/ChipTextAppearance"
+            android:layout_marginEnd="@dimen/base_8"
+            android:fontFamily="@font/roboto_thin"
+            android:text="current 500"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/base_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewName" />
+
+        <TextView
+            android:id="@+id/chipPreviousPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/base_8"
+            android:fontFamily="@font/roboto_thin"
+            android:text="previous 500"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/base_12"
             app:chipEndPadding="@dimen/base_16"
             app:chipStartPadding="@dimen/base_16"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewName" />
+            app:layout_constraintTop_toBottomOf="@+id/chipCurrentPrice" />
 
-        <com.google.android.material.chip.Chip
+        <TextView
             android:id="@+id/chipImported"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/base_16"
-            android:layout_marginBottom="@dimen/base_8"
+            android:layout_marginStart="@dimen/base_8"
+            android:layout_marginBottom="@dimen/base_16"
+            android:fontFamily="@font/roboto_thin"
             android:text="@string/imported"
-            android:textAppearance="@style/ChipTextAppearance_2"
+            android:textColor="?attr/importedTextViewColor"
+            android:textSize="@dimen/base_12"
             android:visibility="gone"
-            app:chipEndPadding="@dimen/base_16"
-            app:chipStartPadding="@dimen/base_16"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipCurrentPrice" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/imageViewTrend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/base_8"
-            app:layout_constraintBottom_toBottomOf="@+id/chipPreviousPrice"
-            app:layout_constraintEnd_toStartOf="@+id/chipPreviousPrice"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/chipPreviousPrice"
+            android:layout_marginBottom="@dimen/base_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipPreviousPrice"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_upward_trend" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

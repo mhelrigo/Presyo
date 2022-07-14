@@ -69,7 +69,7 @@ dependencies {
     // JUnit
     implementation(JUnit.J_UNIT)
     androidTestImplementation(JUnit.J_UNIT_EXT)
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation(Espresso.ESPRESSO)
     testImplementation(Mockito.MOCKITO)
 }
 

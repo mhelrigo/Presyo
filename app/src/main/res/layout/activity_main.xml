@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/customBackgroundColor"
     android:fillViewport="true"
-    tools:context=".main.MainActivity">
+    tools:context=".product.ProductActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -69,10 +69,27 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ProgressBar
-            android:id="@+id/progressBarLoading"
+        <TextView
+            android:id="@+id/textViewLoading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_thin"
+            android:text="@string/loading"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="@dimen/base_24"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButtonRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_thin"
+            android:text="@string/retry"
+            android:textColor="?attr/colorOnPrimary"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

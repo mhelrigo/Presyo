@@ -14,5 +14,7 @@
         <!-- Customize your theme here. -->
 
         <item name="customBackgroundColor">@color/white</item>
+
+        <item name="importedTextViewColor">@color/brown_500</item>
     </style>
 </resources>

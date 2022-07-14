@@ -1,4 +1,4 @@
-package com.mhelrigo.presyo.main
+package com.mhelrigo.presyo.product
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,15 +6,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mhelrigo.domain.product.entity.ProductCategory
 import com.mhelrigo.presyo.databinding.ItemProductCategoriesBinding
+import com.mhelrigo.presyo.product.model.ProductCategoryModel
 
 class ProductCategoriesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     class ProductCategoriesViewHolder(val binding: ItemProductCategoriesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        lateinit var productCategory: ProductCategory
+        lateinit var productCategory: ProductCategoryModel
 
-        fun bind(productCategory: ProductCategory) {
+        fun bind(productCategory: ProductCategoryModel) {
             this.productCategory = productCategory
 
             binding.textViewName.text = productCategory.name
@@ -33,9 +34,9 @@ class ProductCategoriesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
         }
     }
 
-    private val productCategories: ArrayList<ProductCategory> = arrayListOf()
+    private val productCategories: ArrayList<ProductCategoryModel> = arrayListOf()
 
-    fun submitProductCategories(productCategories: List<ProductCategory>) {
+    fun submitProductCategories(productCategories: List<ProductCategoryModel>) {
         this.productCategories.clear()
         this.productCategories.addAll(productCategories)
         notifyDataSetChanged()

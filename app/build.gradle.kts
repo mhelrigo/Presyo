@@ -54,7 +54,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     testImplementation(JUnit.J_UNIT)
     androidTestImplementation(JUnit.J_UNIT_EXT)
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation(Espresso.ESPRESSO)
     implementation("androidx.activity:activity-ktx:1.5.0")
 
     implementation(Kotlin.COROUTINES)

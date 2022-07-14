@@ -3,6 +3,7 @@ package com.mhelrigo.presyo.settings
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -12,7 +13,7 @@ class SettingsViewModel @Inject constructor(val sharedPreferences: SharedPrefere
 
     fun modifyColorMode(colorMode: ColorMode) {
         var colorModeTemp: ColorMode =
-            if (colorMode == ColorMode.LIGHT_MODE || colorMode == ColorMode.DEFAULT) {
+            if (colorMode == ColorMode.LIGHT_MODE) {
                 ColorMode.DARK_MODE
             } else {
                 ColorMode.LIGHT_MODE
@@ -29,7 +30,7 @@ class SettingsViewModel @Inject constructor(val sharedPreferences: SharedPrefere
     fun getColorMode(): ColorMode {
         var colorMode: ColorMode
 
-        sharedPreferences.getInt(COLOR_MODE, ColorMode.DEFAULT.value).also {
+        sharedPreferences.getInt(COLOR_MODE, ColorMode.DARK_MODE.value).also {
             colorMode = when (it) {
                 ColorMode.LIGHT_MODE.value -> {
                     ColorMode.LIGHT_MODE
@@ -38,7 +39,7 @@ class SettingsViewModel @Inject constructor(val sharedPreferences: SharedPrefere
                     ColorMode.DARK_MODE
                 }
                 else -> {
-                    ColorMode.DEFAULT
+                    throw IllegalArgumentException()
                 }
             }
         }

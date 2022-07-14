@@ -1,4 +1,4 @@
-package com.mhelrigo.presyo.main
+package com.mhelrigo.presyo.product
 
 import com.mhelrigo.data.product.ProductRepositoryImpl
 import com.mhelrigo.domain.product.entity.ProductCategories
@@ -6,7 +6,7 @@ import com.mhelrigo.domain.product.repository.ProductRepository
 import junit.framework.TestCase
 import kotlinx.coroutines.flow.*
 
-internal class MainViewModelTest : TestCase() {
+internal class ProductViewModelTest : TestCase() {
 
     private lateinit var fakeGetUseCase: FakeGetUseCase
 

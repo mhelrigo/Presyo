@@ -1,28 +1,33 @@
-package com.mhelrigo.presyo.main
+package com.mhelrigo.presyo.product
 
-import android.content.Intent
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.mhelrigo.domain.product.entity.ProductCategories
+import com.mhelrigo.domain.product.repository.DataType
 import com.mhelrigo.presyo.BuildConfig
 import com.mhelrigo.presyo.R
 import com.mhelrigo.presyo.databinding.ActivityMainBinding
+import com.mhelrigo.presyo.product.model.ProductCategoriesModel
 import com.mhelrigo.presyo.settings.ColorMode
 import com.mhelrigo.presyo.settings.SettingsViewModel
+import com.mhelrigo.presyo.utils.NetworkConnectivityHandler
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class ProductActivity : AppCompatActivity() {
 
-    private val mainViewModel: MainViewModel by viewModels()
+    private val productViewModel: ProductViewModel by viewModels()
     private val settingsViewModel: SettingsViewModel by viewModels()
 
     lateinit var binding: ActivityMainBinding
@@ -33,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater);
 
         setContentView(binding.root)
@@ -57,6 +63,10 @@ class MainActivity : AppCompatActivity() {
                     informationDialog.cancel()
                 }.show()
         }
+
+        binding.materialButtonRetry.setOnClickListener {
+            productViewModel.getProducts(if (NetworkConnectivityHandler.isConnectedToNetwork(this)) DataType.LATEST else DataType.CACHED)
+        }
     }
 
     private fun requestData() {
@@ -64,33 +74,41 @@ class MainActivity : AppCompatActivity() {
             settingsViewModel.setColorMode(it)
         }
 
-        mainViewModel.getProducts()
+        productViewModel.getProducts(if (NetworkConnectivityHandler.isConnectedToNetwork(this)) DataType.LATEST else DataType.CACHED)
     }
 
     private fun setDataObservers() {
-        mainViewModel.loadingProduct = {
-            binding.progressBarLoading.visibility = if (it) View.VISIBLE else View.GONE
+        productViewModel.loadingProduct = {
+            binding.textViewLoading.visibility = if (it) View.VISIBLE else View.GONE
+            binding.materialButtonRetry.visibility = View.GONE
         }
 
-        mainViewModel.productReceived = {
+        productViewModel.productReceived = {
+            binding.materialButtonRetry.visibility = View.GONE
             populateView(it)
         }
 
-        mainViewModel.errorEncountered = {
-            informationDialog = MaterialAlertDialogBuilder(this)
+        productViewModel.errorEncountered = {
+            errorDialog = MaterialAlertDialogBuilder(this)
                 .setTitle(R.string.error_title)
                 .setMessage(R.string.error_message)
                 .setPositiveButton(R.string.information_positive_button) { _, _ ->
-                    finish() // this will do for now.
+                    binding.materialButtonRetry.visibility = View.VISIBLE
                 }.show()
         }
 
         settingsViewModel.colorMode = {
             configureColorScheme(it == ColorMode.DARK_MODE)
+            binding.imageViewBackgroundColor.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    if (it == ColorMode.DARK_MODE) R.drawable.ic_light_mode else R.drawable.ic_dark_mode
+                )
+            )
         }
     }
 
-    private fun populateView(productCategories: ProductCategories) {
+    private fun populateView(productCategories: ProductCategoriesModel) {
         productCategoriesAdapter.submitProductCategories(productCategories.productCategories)
         binding.textViewDate.text = "data as of ${productCategories.date}"
     }
@@ -106,9 +124,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun configureColorScheme(isNightMode: Boolean) {
         if (isNightMode) {
-            if (delegate.localNightMode == AppCompatDelegate.MODE_NIGHT_NO) {
-                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
-            }
+            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
             return
         }
 
